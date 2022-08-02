@@ -7,24 +7,22 @@
 
     const submitHandler = () => {
         valid = true;
-
-        // TODO: Fix this
-        console.log(feilds.question.trim.length)
-        if (feilds.question.trim.length < 5) {
+        
+        if (feilds.question.trim().length < 5) {
             errors.question = 'Question must be at least 5 characters long';
             valid = false;
         } else {
             errors.question = '';
         }
 
-        if (feilds.answerA.trim.length < 1) {
+        if (feilds.answerA.trim().length < 1) {
             errors.answerA = 'Answer must be greater than 1 character';
             valid = false;
         } else {
             errors.answerA = '';
         }
 
-        if (feilds.answerB.trim.length < 1) {
+        if (feilds.answerB.trim().length < 1) {
             errors.answerB = 'Answer must be greater than 1 character';
             valid = false;
         } else {
@@ -33,7 +31,7 @@
 
         // Add new poll
         if (valid) {
-            console.log('valid ' + fields)
+            console.log('valid ' + feilds)
         }
         
     }
