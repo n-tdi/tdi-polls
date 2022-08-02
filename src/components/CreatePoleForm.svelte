@@ -1,8 +1,9 @@
 <script>
     import Button from '../shared/Button.svelte';
+    'use strict';
 
-    let feilds = {question: '', answerA: '', answerB: ''}
-    let errors = {question: '', answerA: '', answerB: ''}
+    let feilds = {question: '', answerA: '', answerB: ''};
+    let errors = {question: '', answerA: '', answerB: ''};
     let valid = false;
 
     const submitHandler = () => {
@@ -16,14 +17,14 @@
         }
 
         if (feilds.answerA.trim().length < 1) {
-            errors.answerA = 'Answer must be greater than 1 character';
+            errors.answerA = 'Answer A must be greater than 1 character';
             valid = false;
         } else {
             errors.answerA = '';
         }
 
         if (feilds.answerB.trim().length < 1) {
-            errors.answerB = 'Answer must be greater than 1 character';
+            errors.answerB = 'Answer B must be greater than 1 character';
             valid = false;
         } else {
             errors.answerB = '';
@@ -32,9 +33,19 @@
         // Add new poll
         if (valid) {
             console.log('valid ' + feilds)
+        }    
+    };
+
+    const handleClick = (object) => {
+        if (object.length > 1) {
+            for (const [key, value] of Object.entries(errors)) {
+                if (errors[key] === object) {
+                    errors[key] = '';
+                    break;
+                }
+            }
         }
-        
-    }
+    };
 </script>
 
 <form on:submit|preventDefault={submitHandler}>
@@ -42,21 +53,21 @@
         <label for="question">Poll Question</label>
         <div class="form-input">
             <div class="errors">{errors.question}</div>
-            <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
+            <input type="text" id="question" on:click={() => handleClick(errors.question)} class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
         </div>
     </div>
     <div class="form-field">
         <label for="answer-a">Answer A</label>
         <div class="form-input">
-            <div class="errors">{errors.answerA}</div>
-            <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
+            <div class="errors" >{errors.answerA}</div>
+            <input type="text" id="answer-a" on:click={() => handleClick(errors.answerA)} bind:value={feilds.answerA} placeholder="Yes!">
         </div>
     </div>
     <div class="form-field">
         <label for="answer-b">Answer B</label>
         <div class="form-input">
             <div class="errors">{errors.answerB}</div>
-            <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
+            <input type="text" id="answer-b" on:click={() => handleClick(errors.answerB)} bind:value={feilds.answerB} placeholder="No :(">
         </div>
     </div>
     <Button inverse={true}>Add Poll</Button>
@@ -101,7 +112,11 @@
 
     .errors { 
         color: #f00;
+        background-color: #fff;
         font-size: 0.75rem;
         display: inline-block;
+        position: relative;
+        top: 7px;
+        padding: 0 5px;
     }
 </style>

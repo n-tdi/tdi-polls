@@ -9,7 +9,7 @@
 	let activeItem = items[0];
 	const tabChange = (e) => {
 		activeItem = e.detail;
-	}
+	};
 </script>
 
 <Header />
