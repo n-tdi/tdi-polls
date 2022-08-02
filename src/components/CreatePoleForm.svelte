@@ -7,7 +7,7 @@
 
     const submitHandler = () => {
         valid = true;
-        
+
         if (feilds.question.trim().length < 5) {
             errors.question = 'Question must be at least 5 characters long';
             valid = false;
@@ -40,18 +40,18 @@
 <form on:submit|preventDefault={submitHandler}>
     <div class="form-field">
         <label for="question">Poll Question</label>
-        <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
         <div class="errors">{errors.question}</div>
+        <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
     </div>
     <div class="form-field">
         <label for="answer-a">Answer A</label>
-        <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
         <div class="errors">{errors.answerA}</div>
+        <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
     </div>
     <div class="form-field">
         <label for="answer-b">Answer B</label>
-        <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
         <div class="errors">{errors.answerB}</div>
+        <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
     </div>
     <Button inverse={true}>Add Poll</Button>
 </form>
