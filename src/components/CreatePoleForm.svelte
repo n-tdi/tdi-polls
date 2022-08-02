@@ -40,18 +40,24 @@
 <form on:submit|preventDefault={submitHandler}>
     <div class="form-field">
         <label for="question">Poll Question</label>
-        <div class="errors">{errors.question}</div>
-        <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
+        <div class="form-input">
+            <div class="errors">{errors.question}</div>
+            <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
+        </div>
     </div>
     <div class="form-field">
         <label for="answer-a">Answer A</label>
-        <div class="errors">{errors.answerA}</div>
-        <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
+        <div class="form-input">
+            <div class="errors">{errors.answerA}</div>
+            <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
+        </div>
     </div>
     <div class="form-field">
         <label for="answer-b">Answer B</label>
-        <div class="errors">{errors.answerB}</div>
-        <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
+        <div class="form-input">
+            <div class="errors">{errors.answerB}</div>
+            <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
+        </div>
     </div>
     <Button inverse={true}>Add Poll</Button>
 </form>
@@ -63,26 +69,32 @@
         text-align: center;
         .form-field {
             margin: 18px;
-            input {
-                width: 100%;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                padding: 8px;
-                font-size: 1.25rem;
-                font-weight: 100;
-                color: #555;
-                &:focus {
-                    outline: none;
-                    border-color: #3890ce;
-                }
-            }
             label {
-                display: block;
-                font-size: 1.25rem;
-                font-weight: 100;
-                color: #555;
-                padding-bottom: 15px;
-                text-align-last: left;
+                    user-select: none;
+                    display: block;
+                    font-size: 1.25rem;
+                    font-weight: 100;
+                    color: #555;
+                    // padding-bottom: 15px;
+                    text-align-last: left;
+                }
+            .form-input {
+                input {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 8px;
+                    font-size: 1.25rem;
+                    font-weight: 100;
+                    color: #555;
+                    &:focus {
+                        outline: none;
+                        border-color: #3890ce;
+                    }
+                }
             }
         }
     }
