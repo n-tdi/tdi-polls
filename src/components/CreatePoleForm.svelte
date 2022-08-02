@@ -1,24 +1,59 @@
 <script>
     import Button from '../shared/Button.svelte';
 
-    let fields = {question: '', answerA: '', answerB: ''}
+    let feilds = {question: '', answerA: '', answerB: ''}
+    let errors = {question: '', answerA: '', answerB: ''}
+    let valid = false;
+
     const submitHandler = () => {
-        console.log(fields)
+        valid = true;
+
+        // TODO: Fix this
+        console.log(feilds.question.trim.length)
+        if (feilds.question.trim.length < 5) {
+            errors.question = 'Question must be at least 5 characters long';
+            valid = false;
+        } else {
+            errors.question = '';
+        }
+
+        if (feilds.answerA.trim.length < 1) {
+            errors.answerA = 'Answer must be greater than 1 character';
+            valid = false;
+        } else {
+            errors.answerA = '';
+        }
+
+        if (feilds.answerB.trim.length < 1) {
+            errors.answerB = 'Answer must be greater than 1 character';
+            valid = false;
+        } else {
+            errors.answerB = '';
+        }
+
+        // Add new poll
+        if (valid) {
+            console.log('valid ' + fields)
+        }
+        
     }
 </script>
 
 <form on:submit|preventDefault={submitHandler}>
     <div class="form-field">
         <label for="question">Poll Question</label>
-        <input type="text" id="question" bind:value={fields.question} placeholder="Do you like dogs?">
+        <input type="text" id="question" class:red={errors.question > 1} bind:value={feilds.question} placeholder="Do you like dogs?">
+        <div class="errors">{errors.question}</div>
     </div>
     <div class="form-field">
         <label for="answer-a">Answer A</label>
-        <input type="text" id="answer-a" bind:value={fields.answerA} placeholder="Yes!">
+        <input type="text" id="answer-a" bind:value={feilds.answerA} placeholder="Yes!">
+        <div class="errors">{errors.answerA}</div>
     </div>
     <div class="form-field">
         <label for="answer-b">Answer B</label>
-        <input type="text" id="answer-b" bind:value={fields.answerB} placeholder="No :(">
+        <input type="text" id="answer-b" bind:value={feilds.answerB} placeholder="No :(">
+        <div class="errors">{errors.answerB}</div>
     </div>
     <Button inverse={true}>Add Poll</Button>
 </form>
@@ -52,5 +87,11 @@
                 text-align-last: left;
             }
         }
+    }
+
+    .errors { 
+        color: #f00;
+        font-size: 0.75rem;
+        display: inline-block;
     }
 </style>
