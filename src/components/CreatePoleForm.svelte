@@ -1,4 +1,7 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+    import crypto from "crypto";
+    let dispatch = createEventDispatcher();
     import Button from '../shared/Button.svelte';
     'use strict';
 
@@ -32,7 +35,8 @@
 
         // Add new poll
         if (valid) {
-            console.log('valid ' + feilds)
+            let poll = {...feilds, votesA: 0, votesB: 0, id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)};
+            dispatch('addPoll', poll);
         }    
     };
 

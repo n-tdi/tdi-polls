@@ -20,6 +20,7 @@
     "svelte-preprocess": "^4.10.7"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "sirv-cli": "^2.0.0"
   }
 }
