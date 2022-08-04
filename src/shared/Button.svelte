@@ -4,7 +4,7 @@
     export let inverse = false;
 </script>
 
-<button class={type} class:flat={flat} class:inverse={inverse}>
+<button class={type} on:click class:flat={flat} class:inverse={inverse}>
     <slot></slot>
 </button>
 
@@ -14,8 +14,8 @@
         cursor: pointer;
         border-radius: 6px;
         padding: 8px 12px;
-        font-size: 1.25rem;
-        font-weight: 100;
+        font-size: 1.1rem;
+        font-weight: 300;
         box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
         &:active {
             outline: none;
@@ -31,6 +31,10 @@
     .secondary {
         background: #f5f5f5;
         color: #555;
+    }
+    .red {
+        background: #d94444;
+        color: rgb(255, 255, 255);
     }
 
     .flat {

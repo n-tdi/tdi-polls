@@ -1,8 +1,7 @@
 <script>
     import Card from '../shared/Card.svelte';
-    import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
+    import PollStore from '../stores/PollStore.js';
+    import Button from '../shared/Button.svelte';
 
     export let poll;
 
@@ -12,7 +11,25 @@
     $: percentB = Math.floor(100 / totalVotes * poll.votesB);
 
     const upVote = (option, id) => {
-        dispatch('vote', {option, id});
+        PollStore.update((data) => { 
+            let copPolls = [...data]; // Capybara: Ok I pull up... ...the polls array and make a copy of it.
+
+            const poll = copPolls.find(p => p.id === id);
+
+            if (option === 'a') {
+                poll.votesA++;
+            } else {
+                poll.votesB++;
+            }
+
+            return copPolls;
+        });
+    };
+
+    const handledDelete = (id) => {
+        PollStore.update(data => {
+            return data.filter(p => p.id != id);
+        });
     };
 </script>
 
@@ -27,6 +44,9 @@
         <div class="answer" on:click={() => upVote('b', poll.id)}>
             <div class="percent percent-b" style="width: {percentB}%"></div>
             <span>{poll.answerB} ({poll.votesB})</span>
+        </div>
+        <div class="delete">
+            <Button flat={true} type="red" on:click={() => handledDelete(poll.id)}>Delete</Button>
         </div>
     </div>
 </Card>
@@ -70,6 +90,10 @@
                 border-left: 4px solid #1b9e6a;
                 background-color: rgba(0, 188, 212, 0.2);
             }
+        }
+        .delete {
+            margin-top: 30px;
+            text-align: center;
         }
     }
 </style>

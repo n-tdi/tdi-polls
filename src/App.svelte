@@ -12,34 +12,9 @@
 		activeItem = e.detail;
 	};
 
-	// Polls
-	let polls = [
-		{
-			id: 1,
-			question: 'Python or JavaScript?',
-			answerA: 'Python',
-			answerB: 'JavaScript',
-			votesA: 9,
-			votesB: 15,
-		},
-  	];
+	
 	const handleAdd = (e) => {
-		const poll = e.detail;
-		polls = [poll, ...polls];
 		activeItem = items[0];
-		console.log(polls);
-	};
-
-	const handleVote = (e) => {
-		const {option, id} = e.detail;
-		let copPolls = [...polls]; // Capybara: Ok I pull up... ...the polls array and make a copy of it.
-		const poll = copPolls.find(p => p.id === id);
-		if (option === 'a') {
-			poll.votesA++;
-		} else {
-			poll.votesB++;
-		}
-		polls = [...copPolls];
 	};
 </script>
 
@@ -47,7 +22,7 @@
 <main>
 	<Tabs {items} {activeItem} on:tabChange={tabChange}/>
 	{#if activeItem === items[0]}
-		<PollList {polls} on:vote={handleVote}/>
+		<PollList />
 	{:else if activeItem === items[1]}
 		<CreatePoleForm on:addPoll={handleAdd} />
 	{:else}

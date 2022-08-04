@@ -1,4 +1,5 @@
 <script>
+    import PollStore from '../stores/PollStore.js';
     import { createEventDispatcher } from "svelte";
     import crypto from "crypto";
     let dispatch = createEventDispatcher();
@@ -36,7 +37,12 @@
         // Add new poll
         if (valid) {
             let poll = {...feilds, votesA: 0, votesB: 0, id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)};
-            dispatch('addPoll', poll);
+            // Save poll to store
+
+            PollStore.update((data) => {
+                return [poll, ...data];
+            });
+            dispatch('addPoll');
         }    
     };
 
